@@ -286,6 +286,7 @@ We will install Grafana, Prometheus, Node Exporter in the above instance and the
 15.2. Installing Prometheus
 --------------------------------------------------
 First, create a dedicated Linux user for Prometheus and download Prometheus
+sudo su
 sudo useradd --system --no-create-home --shell /bin/false prometheus
 wget https://github.com/prometheus/prometheus/releases/download/v2.47.1/prometheus-2.47.1.linux-amd64.tar.gz
 
@@ -495,6 +496,9 @@ The first thing that we have to do in Grafana is to add the data source
 Lets add the data source;
 
 <Follow the process as explained in the video>
+go new url page and accesss it 
+<grafana url -  http://grafana.com/grafana/dashboards/1860-node-exporter-full/
+<jenkins url-   http://grafana.com/grafana/dashboards/9964-jenkins-performance-and-health-overview/
 
 Click on Dashboards in the left pane, you can see both the dashboards you have just added.
 
@@ -747,6 +751,7 @@ Kind Request:
 Once after you have successfully deployed the App, kindly share your experience on LinkedIn by Tagging me and also provide the YouTube link of this project in your post, as it helps others to access the video quickly. 
 ========================================================================================================
 												HAPPY LEARNING
+
 
 
 
