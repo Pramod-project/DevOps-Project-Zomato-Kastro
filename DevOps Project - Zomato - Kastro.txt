@@ -20,6 +20,7 @@ sudo ./aws/install
 
 5. Install Jenkins on Ubuntu
 (Reference URL for commands: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu)
+#vi jenkins.sh
 #!/bin/bash
 sudo apt update -y
 wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /etc/apt/keyrings/adoptium.asc
@@ -33,7 +34,8 @@ sudo apt-get update -y
 sudo apt-get install jenkins -y
 sudo systemctl start jenkins
 sudo systemctl status jenkins
-
+#chmod +x jenkins.sh
+#./jenkins.sh
 Verifiy Jenkins installation: jenkins --version
 
 5.1. Open Port No. 8080 for VM and access Jenkins
@@ -41,7 +43,7 @@ Verifiy Jenkins installation: jenkins --version
 
 6. Install Docker on Ubuntu
 (Reference URL for commands: https://docs.docker.com/engine/install/ubuntu/)
-
+# vi docker.sh
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -59,55 +61,87 @@ sudo usermod -aG docker ubuntu
 sudo chmod 777 /var/run/docker.sock
 newgrp docker
 sudo systemctl status docker
+# chmod +x docker.sh
+# ./docker.sh
 
 Verifiy Docker installation: docker --version
 
 7. Install Trivy on Ubuntu
 (Reference URL for commands: https://aquasecurity.github.io/trivy/v0.55/getting-started/installation/)
+# vi trivy.sh
 sudo apt-get install wget apt-transport-https gnupg
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
 echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
 sudo apt-get update
 sudo apt-get install trivy
+# chmod +x trivy.sh
+# ./trivy.sh
 
 Verifiy Trivy installation: trivy --version
 
 8. Install Docker Scout
 Make sure to Login to DockerHub account in browser
+goto mobaxtrem-login docker hub-docker login -u <dockerhub name>-click ok-enter password-lets install docker scout<curl -sSfl https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b/usr/local/bin>
+# sudo chmod 777 /var/run/docker.sock
+
 <Follow the process as explained in the video>
 
 9. Install SonarQube using Docker
 $ docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
 $ docker ps (You can see SonarQube container)
 
-<Follow the process as explained in the video>
 
 10. Installation of Plugins in Jenkins
 Install below plugins:
-<Follow the process as explained in the video>
+<Pipeline stage view-eclipse termurin installar-sonarqube scannar-docker-email extension template-owasp dependency-check-nodeJS-promethius metrix-click to install>
 
 11. SonarQube configuration in Jenkins
-<Follow the process as explained in the video>
+<create token>
 
 11.1. Tools Configuration in Jenkins
-<Follow the process as explained in the video>
+<jdk17
+<inatll from adoptium
+<version jdk-17.0.8.1+1
+
+<sonarqube scanner
+<name : sonar-scanner
+< 6.2.04584 version
+
+<node js
+<name : node23
+<versio 16.20.0
+
+<dependency check installation
+<add- name: DP-Check
+<install from github
+<select letest version
+
+<docker installation
+<name : docker 
+<add installa select latest
+
+apply-save
 
 11.2. Configuration of SonarQube Token in Jenkins
-<Follow the process as explained in the video>
+<create token>
+
+<credentials-sonar token  -   docker credentials   - email credentils in google>
 
 Lets create another credentials for DockerHub. This is being done because, as soon as the docker image is created, it should get pushed to dockerhub. 
 <Follow the process as explained in the video>
 
 11.3 Configuration of Email notification in Jenkins
 As soon as the build happens, i need to get an email notification to do that we have to configure our email.
-<Follow the process as explained in the video>
+< create password-go to gmail acc- click on the profile icon-edit google account-click-serch app passwords allow - app name (jenkins) -create ---remove spaces name in jenkins -email-creds>
 
 
 12. System Configuration in Jenkins
-<Follow the process as explained in the video>
+<credentials-sonar token     docker credentials>
 
 13. Create webhook in SonarQube
-<Follow the process as explained in the video>
+<name : sonar-server  Extended E-mail Notification-smtp.gmail.com- 465- advanecd-Use SSL-Use OAuth 2.0credential email credential -    E-mail Notification-smtp.gmail.com-advance-Use SMTP Authentication-provide email id&password(app token)-Use SSL-465-replay own email.id -ok -test email---default trigger-always-succes -save -ok >
+
+sonarqube dashbord open -configaration -webhook create it- name- sonarqube-webhook-jenkins url/sonarqube-webhook-create-ok
 
 14. Create Pipeline Job
 Before pasting the pipeline script, do the following changes in the script
@@ -713,6 +747,7 @@ Kind Request:
 Once after you have successfully deployed the App, kindly share your experience on LinkedIn by Tagging me and also provide the YouTube link of this project in your post, as it helps others to access the video quickly. 
 ========================================================================================================
 												HAPPY LEARNING
+
 
 
 
